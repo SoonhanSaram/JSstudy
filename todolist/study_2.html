@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+<meta charset=UTF-8 />
+<meta name=viewport content=width=device-width, initial-scale=1.0 />
+<title>Document</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <input type="text" name="todo" placeholder="할 일을 입력하세요" />
+    <button id="add-button">추가</button>
+    <table>
+        <thead>
+            <tr>
+                <th>할 일</th>
+                <th>완료</th>                
+            </tr>
+        </thead>
+        <tbody class="todo-list">
+        </tbody>
+    </table>
+    
+</body>
+<script>
+    const addButton = document.querySelector("#add-button");
+    const input = document.querySelector("input");
+    const todoList = document.querySelector(".todo-list");
+
+    addButton.addEventListener('click', () => {
+        const todo = input.value;
+        if(todo === '') {
+            alert('할 일을 입력해주세요');
+            return ;
+        }
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        td.textContent = todo;
+        tr.appendChild(td);
+        tr.appendChild(checkbox);
+        todoList.appendChild(tr);
+        input.value = '';
+    })
+</script>
+</html>

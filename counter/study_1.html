@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is study 1</h1>
+    <div id="counter-wrapper">
+        <span id="number-display">0</span>
+        <button id='plus-button'>더하기</button>
+        <button id='minus-button'>빼기</button>
+    </div>
+</body>
+<script>
+    const addButton = document.querySelector('#plus-button');
+    const minusButton = document.querySelector('#minus-button');
+    let number = 0
+
+    addButton.addEventListener('click', (e) => {
+        number += 1
+        document.querySelector('#number-display').textContent = number;
+    });
+
+    minusButton.addEventListener('click', (e) => {
+        number -= 1
+        document.querySelector('#number-display').textContent = number;
+    });
+</script>
+</html>
