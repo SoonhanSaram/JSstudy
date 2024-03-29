@@ -27,10 +27,32 @@
     
 </body>
 <script>
+    
     const addButton = document.querySelector("#add-button");
     const input = document.querySelector("input");
     const todoList = document.querySelector(".todo-list");
     const deleteButton = document.querySelector(".delete-button");
+
+    // 쿠키가 있으면 불러오기 새로고침시 불러오기
+   document.addEventListener('DOMContentLoaded', function() {
+    var cookies = document.cookie.split('; ').reduce((acc, item) => {
+        var b = item.split('=');
+        acc[b[0]] = b.length > 1 ? JSON.parse(decodeURIComponent(b[1])) : '';
+        return acc;
+    }, {});
+
+    if (cookies.todos) {
+        todos = cookies.todos;
+        toRender();
+    }
+    });
+
+    const setCookie = (name, value, exp) => {
+        const date = new Date();
+        date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+        // cookie 에 배열로 저장
+        document.cookie = `${name}=${value};expires=${date.toUTCString()}`;
+    }
 
     // todoList에 들어갈 데이터
     let todos = [];
@@ -85,7 +107,9 @@
         } 
 
         todos.push(todo);
-
+        
+        setCookie('todos', JSON.stringify(todos), 1);
+        
         toRender();
         
         input.value = '';
@@ -109,6 +133,7 @@
         if(e.target.className === 'delete-button') {
             const index = e.target.parentElement.parentElement.children[0].textContent - 1;
             todos.splice(index, 1);
+            setCookie('todos', JSON.stringify(todos), 1);
             toRender();
             // e.target.parentElement.parentElement.remove();
         }
