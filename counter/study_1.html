@@ -4,28 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="counter.css">
 </head>
 <body>
     <h1>This is study 1</h1>
-    <div id="counter-wrapper">
-        <span id="number-display">0</span>
+    <span id="number-display">0</span>
         <button id='plus-button'>더하기</button>
         <button id='minus-button'>빼기</button>
+    <div id="starfield">
+        
     </div>
 </body>
 <script>
+
     const addButton = document.querySelector('#plus-button');
     const minusButton = document.querySelector('#minus-button');
-    let number = 0
+    const starfield = document.querySelector('#starfield');
+    
 
-    addButton.addEventListener('click', (e) => {
-        number += 1
-        document.querySelector('#number-display').textContent = number;
-    });
+    // 기존 구현 코드 
+    // let number = 0
+    // 
+    // addButton.addEventListener('click', (e) => {
+        // number += 1
+        // document.querySelector('#number-display').textContent = number;
+    // });
+    // 
+    // minusButton.addEventListener('click', (e) => {
+        // number -= 1
+        // document.querySelector('#number-display').textContent = number;
+    // });
 
-    minusButton.addEventListener('click', (e) => {
-        number -= 1
-        document.querySelector('#number-display').textContent = number;
-    });
+    // 새로운 구현 코드
+    let starCount = 0;
+
+    const createStar = () => {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.left = `${Math.random() * 15}vw`;
+        starfield.appendChild(star);
+
+        setTimeout(() => {
+            star.remove();
+        }, 3000);
+
+        return star;
+    }
+
+    const animateStars = () => {
+        if(starCount > 0) {
+            for (let i =0; i < starCount; i++) {
+                const star = createStar();
+                star.style.animation = `shootingStar 5s linear infinite`;
+            }
+        }
+    }
+
+    addButton.addEventListener('click', () => {
+        starCount++;
+        animateStars();
+        document.querySelector('#number-display').textContent = starCount;
+     });
+     
+     minusButton.addEventListener('click', () => {
+        if (starCount > 0) {
+            starCount--;
+            animateStars();   
+            document.querySelector('#number-display').textContent = starCount; 
+        }
+     });
 </script>
 </html>

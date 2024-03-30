@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  
+}
+
+#starfield {
+  position: absolute;
+  width: 30%;
+  height: 50%;
+  background-color: black;
+}
+
+.star {
+    position: relative;
+    width: 20px;
+    height: 15px;
+    background: #ffd67a;	
+}
+    
+.star::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 15px;
+    background: #ffd67a;
+    transform:rotate(45deg);
+}
+
+@keyframes shootingStar {
+  from {
+    transform: translateY(0) translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(30vh) translateX(20vw);
+    opacity: 0;
+  }
+}
