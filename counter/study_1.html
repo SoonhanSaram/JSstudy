@@ -39,23 +39,34 @@
     let starCount = 0;
 
     const createStar = () => {
+        
+        // starfield 의 기존 자식 노드를 삭제하고 새로운 div 노드를 생성하여 추가
+        starfield.innerHTML = '';
+        
+        const stars = [];
+
+        for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.classList.add('star');
         star.style.left = `${Math.random() * 15}vw`;
         starfield.appendChild(star);
+        stars.push(star);
 
         setTimeout(() => {
             star.remove();
-        }, 3000);
+        }, 3000 * 1);
+    }
 
-        return star;
+    return stars;
     }
 
     const animateStars = () => {
         if(starCount > 0) {
             for (let i =0; i < starCount; i++) {
-                const star = createStar();
-                star.style.animation = `shootingStar 5s linear infinite`;
+                const stars = createStar();
+                stars.forEach(star => {
+                    star.style.animation = `shootingStar 5s linear infinite`;
+                });
             }
         }
     }
